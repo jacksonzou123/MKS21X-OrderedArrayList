@@ -21,7 +21,16 @@ public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T
   }
 
   public void add(int index, T element) {
-    super.add(element);
+    this.add(element);
   }
 
+  public T set(int index, T element) {
+    if (index < size()) {
+      T f = super.get(index);
+      super.remove(index);
+      this.add(element);
+      return f;
+    }
+    throw new IllegalArgumentException();
+  }
 }
