@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T> {
   private T value;
@@ -14,11 +13,15 @@ public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T
 
   public boolean add(T element) {
     for (int i = 0; i < super.size(); i++) {
-      if element.compareTo(super.get(i)) {
+      if (element.compareTo(super.get(i)) > 0) {
         super.add(i, element);
       }
     }
     return true;
+  }
+
+  public void add(int index, T element) {
+    super.add(element);
   }
 
 }
