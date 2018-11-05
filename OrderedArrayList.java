@@ -12,25 +12,41 @@ public class OrderedArrayList<T extends Comparable<T>> extends NoNullArrayList<T
   }
 
   public boolean add(T element) {
-    for (int i = 0; i < super.size(); i++) {
-      if (element.compareTo(super.get(i)) > 0) {
-        super.add(i, element);
-      }
+    if (element == null) {
+      throw new IllegalArgumentException();
     }
+    super.add(findIndex(element), element);
     return true;
   }
 
+  private int findIndex(T element){
+    int index = 0;
+    for (int i = 0; i < this.size(); i ++){
+      if (this.get(i).compareTo(element) <= 0){
+        index ++;
+      }
+    }
+    return index;
+  }
+
   public void add(int index, T element) {
+    if (element == null) {
+      throw new IllegalArgumentException();
+    }
     this.add(element);
   }
 
   public T set(int index, T element) {
+    if (element == null) {
+      throw new IllegalArgumentException();
+    }
     if (index < size()) {
-      T f = super.get(index);
+      T old = super.get(index);
       super.remove(index);
-      this.add(element);
-      return f;
+      this.add(findIndex(element),element);
+      return old;
     }
     throw new IllegalArgumentException();
   }
+
 }
